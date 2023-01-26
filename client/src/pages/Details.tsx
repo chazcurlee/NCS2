@@ -2,7 +2,10 @@ import { Paper, Box, Container, Button } from "@mui/material"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import axios from "axios"
+import CarCarousel from '../components/CarCarousel'
 const youtubesearchapi = require("youtube-search-api");
+
+
 
 interface FilteredCarInfo {
     Make: string | null,
@@ -31,17 +34,22 @@ let filteredCarInfo: FilteredCarInfo = {
     Price: ''
 }
 
-const Details = () => {
+const Details = (props: any) => {
     let { vin, date } = useParams()
     let [ carInfo, setCarInfo ]: any = useState({})
     let [ lock, setLock ] = useState(false)
     let [refresh, setRefresh] = useState(false)
-    let [videoReview, setVideoReview] = useState()
+    let [final, setFinal] = useState(false)
+    let [videoReview, setVideoReview] = useState([])
+    let [id, setId]: any = useState([])
+    let [title, setTitle]: any = useState([])
+    let [thumbnailUrl, setThumbnailUrl]: any = useState([])
+    let [vidHeight, setVidHeight]: any = useState([])
+    let [vidWidth, setVidWidth]: any = useState([])
     let markers: number[] = [7, 9, 10, 21, 23, 49, 51, 79, 87, 88]
 
    
     
-
 
     useEffect(() => {
         
@@ -58,18 +66,18 @@ const Details = () => {
             
 
             markers.forEach((x: number) => {
-                
-
-                if (x === 87) {filteredCarInfo.Turbo = carInfo[x].Value}
-                if (x === 88) {filteredCarInfo.Speed = carInfo[x].Value}
-                if (x === 79) {filteredCarInfo.Engine = carInfo[x].Value}
-                if (x === 51) {filteredCarInfo.Drive = carInfo[x].Value}
-                if (x === 49) {filteredCarInfo.Trans = carInfo[x].Value}
-                if (x === 23) {filteredCarInfo.Body = carInfo[x].Value}
-                if (x === 21) {filteredCarInfo.Price = carInfo[x].Value}
-                if (x === 10) {filteredCarInfo.Year = carInfo[x].Value}
-                if (x === 9) {filteredCarInfo.Model = carInfo[x].Value}
-                if (x === 7) {filteredCarInfo.Make = carInfo[x].Value}
+                let entry = carInfo[x].Value
+        
+                if (x === 87) {filteredCarInfo.Turbo = entry}
+                if (x === 88) {filteredCarInfo.Speed = entry}
+                if (x === 79) {filteredCarInfo.Engine = entry}
+                if (x === 51) {filteredCarInfo.Drive = entry}
+                if (x === 49) {filteredCarInfo.Trans = entry}
+                if (x === 23) {filteredCarInfo.Body = entry}
+                if (x === 21) {filteredCarInfo.Price = entry}
+                if (x === 10) {filteredCarInfo.Year = entry}
+                if (x === 9) {filteredCarInfo.Model = entry}
+                if (x === 7) {filteredCarInfo.Make = entry}
                 
               
             })
@@ -77,44 +85,64 @@ const Details = () => {
             for (key in filteredCarInfo) {
                 if (filteredCarInfo[key] === null) {filteredCarInfo[key] = 'Not Available' }
             }
+
+
             let car = filteredCarInfo.Make + " " + filteredCarInfo.Model + " " + filteredCarInfo.Year
-            console.log(car)
+            
             let image = await youtubesearchapi.GetListByKeyword(`${car} review`,[true],[6], [{type:"video"}])
             setVideoReview(image.items)
-            console.log(image.items)
+            
+            
             setRefresh(true)
         }
-        if (lock && !refresh) {updateCar()}
         
-        
-        
-    }, [lock, refresh])
 
+        const finalPush = () => {
+            
+            videoReview.map((info: any) => {
+                
+                setId((prevState: any) => [...prevState, info.id])
+                setTitle((prevState: any) => [...prevState, info.title])
+                setThumbnailUrl((prevState: any) => [...prevState, info.thumbnail.thumbnails[0].url])
+                setVidHeight((prevState: any) => [...prevState, info.thumbnail.thumbnails[0].height])
+                setVidWidth((prevState: any) => [...prevState, info.thumbnail.thumbnails[0].width])
+                
+            })
+            setFinal(true)
+        }
+
+        if (lock && !refresh) {updateCar()}
+        if (lock && refresh && !final) {finalPush()}
+        
+        
+        
+        
+    }, [lock, refresh, final])
 
     
-    return  refresh ? (
-    <Box display="grid" gridTemplateColumns='repeat(12, 1fr)' gridTemplateRows='repeat(12, 1fr)' gap={2} sx={{
+    return  final ? (
+    <Box display="grid" gridTemplateColumns='repeat(12, 1fr)' gridTemplateRows='repeat(12, 1fr)' gap={2} className={props.darkMode} sx={{
         height: '100%'
     }}>
-        <Box gridColumn=' 3' gridRow="2" sx={{
+        <Box gridColumn=' 3' gridRow="2" className={props.darkMode} sx={{
             positon: 'sticky',
             top: '0'
         }}>
             <Button>Back</Button>
         </Box>
-        <Box gridColumn='4 / 10' gridRow='2 / 12'sx={{
+        <Box gridColumn='4 / 10' gridRow='2 / 12' className={props.darkMode}sx={{
             height: '80vh'
         }}>
-            <Paper sx={{
+            <Paper className={props.darkMode} sx={{
                 border: 'solid',
                 borderColor: 'black',
                 height: '100%'
             }}>
-                <Box display='grid' gridTemplateColumns='repeat(12, 1fr)' gridTemplateRows="repeat(12, 1fr)" sx={{
+                <Box display='grid' gridTemplateColumns='repeat(12, 1fr)' gridTemplateRows="repeat(16, 1fr)" sx={{
                     height: '100%',
                     width: '100%'
                 }}>
-                     <Box display="grid" gridTemplateColumns='repeat(12, 1fr)' gridTemplateRows="repeat(12, 1fr)" gridColumn='span 12' gridRow=" span 7">
+                    <Box display="grid" gridTemplateColumns='repeat(12, 1fr)' gridTemplateRows="repeat(12, 1fr)" gridColumn='span 12' gridRow=" span 7">
                          <Box gridColumn="span 12" gridRow='1'>
                              <Container><h3>VIN: {vin}</h3></Container>
                          </Box>
@@ -139,7 +167,9 @@ const Details = () => {
                              <Container><p>Base Price: {filteredCarInfo.Price}</p></Container> 
                          </Box>
                      </Box>
-                    <Box display='grid' gridTemplateColumns='repeat(12, 1fr)' gridTemplateRows='repeat(12, 1fr)' gridColumn='span 12' gridRow='8 / 13' sx={{
+
+                     <CarCarousel id={id} title={title} thumbnailUrl={thumbnailUrl} vidHeight={vidHeight} vidWidth={vidWidth} darkMode={props.darkMode}/>
+                    {/* <Box display='grid' gridTemplateColumns='repeat(12, 1fr)' gridTemplateRows='repeat(12, 1fr)' gridColumn='span 12' gridRow='8 / 13' sx={{
                         borderTop: "solid",
                         
                     }}>
@@ -150,7 +180,8 @@ const Details = () => {
                             borderLeft: 'solid',
                             borderColor: 'grey',
                             zIndex: '1',
-                            backgroundColor: 'white'
+                            backgroundColor: 'grey',
+                            opacity: '0.95'
                         }}>Reviews</Box>
                         <Box gridColumn='1' gridRow='5 / 8' sx={{
                             borderTop: 'solid',
@@ -158,21 +189,30 @@ const Details = () => {
                             borderRight: 'solid',
                             borderColor: 'grey',
                             zIndex: '1',
-                            backgroundColor: 'white'
-                        }}>
+                            backgroundColor: 'grey',
+                            opacity: '0.5'
+                        }}  onClick={() => handleClick(1)}>
 
 
                         </Box>
-                        <Box gridColumn='1 / 13' gridRow='1 / 13' sx={{backgroundColor: 'black'}}></Box>
+                        <Box gridColumn='1 / 13' gridRow='1 / 13' sx={{
+                            backgroundImage: `url(${thumbnailUrl[vidScroll]})`,
+                            backgroundRepeat: "no-repeat",
+                            backgroundSize: "cover",
+                            backgroundPosition: 'center'
+                            }}>
+
+                        </Box>
                         <Box gridColumn='12' gridRow='5 / 8' sx={{
                             borderTop: 'solid',
                             borderBottom: 'solid',
                             borderLeft: 'solid',
                             borderColor: 'grey',
                             zIndex: '1',
-                            backgroundColor: 'white'
+                            backgroundColor: 'grey',
+                            opacity: '0.5'
                         }}></Box>
-                    </Box>
+                    </Box> */}
 
                    
                 </Box>

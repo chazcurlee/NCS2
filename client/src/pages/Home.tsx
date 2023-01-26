@@ -4,7 +4,7 @@ import { useState } from "react"
 import axios from 'axios'
 
 
-const Home = () => {
+const Home = (props: any) => {
     let navigate = useNavigate()
     let [ vin, setVin] = useState("")
     let [date, setDate] = useState()
