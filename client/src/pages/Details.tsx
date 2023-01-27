@@ -1,5 +1,5 @@
 import { Paper, Box, Container, Button } from "@mui/material"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import CarCarousel from '../components/CarCarousel'
@@ -36,6 +36,7 @@ let filteredCarInfo: FilteredCarInfo = {
 
 const Details = (props: any) => {
     let { vin, date } = useParams()
+    const navigate = useNavigate()
     let [ carInfo, setCarInfo ]: any = useState({})
     let [ lock, setLock ] = useState(false)
     let [refresh, setRefresh] = useState(false)
@@ -47,9 +48,14 @@ const Details = (props: any) => {
     let [vidHeight, setVidHeight]: any = useState([])
     let [vidWidth, setVidWidth]: any = useState([])
     let markers: number[] = [7, 9, 10, 21, 23, 49, 51, 79, 87, 88]
-
    
+    const handleBack = () => {
+
+        navigate('/')
+
+    }
     
+
 
     useEffect(() => {
         
@@ -128,14 +134,15 @@ const Details = (props: any) => {
             positon: 'sticky',
             top: '0'
         }}>
-            <Button>Back</Button>
+            <Button onClick={handleBack}>Back</Button>
         </Box>
         <Box gridColumn='4 / 10' gridRow='2 / 12' className={props.darkMode}sx={{
             height: '80vh'
         }}>
-            <Paper className={props.darkMode} sx={{
-                border: 'solid',
-                borderColor: 'black',
+            <Paper  sx={{
+                backgroundColor: 'rgb(69, 68, 114, 0.5)',
+                borderRadius: '50px',
+                color: 'white',
                 height: '100%'
             }}>
                 <Box display='grid' gridTemplateColumns='repeat(12, 1fr)' gridTemplateRows="repeat(16, 1fr)" sx={{
@@ -220,7 +227,7 @@ const Details = (props: any) => {
         </Box>
         {/* <Box gridColumn='10 /13' gridRow='' ></Box> */}
     </Box>
-    ) : (<div>Loading</div>)
+    ) : (<Box sx={{height: '100vh'}}>Loading</Box>)
 }
 
 export default Details

@@ -12,16 +12,19 @@ import LoginSignUp from './pages/LoginSignUp';
 
 const App: React.FC = () => {
   let [ darkMode, setDarkMode] = useState('background-dark')
+  let [login, setLogin] = useState('Sign Up/Login')
+  let [paperBg, setPaperBg] = useState('rgb(69, 68, 114, 0.5)')
+
   
  
   return (
     <div className={`App ${darkMode}`}>
 
-      <Header darkMode={darkMode} setDarkMode={setDarkMode}/>
+      <Header darkMode={darkMode} setDarkMode={setDarkMode} login={login}/>
       <Routes>
         <Route path="/" element={< Home darkMode={darkMode}/>} />
         <Route path="details/:vin/:date" element={ <Details darkMode={darkMode}/>} />
-        <Route path="login-signup" element={ <LoginSignUp darkMode={darkMode}/>} />
+        <Route path="login-signup" element={ <LoginSignUp darkMode={darkMode} login={login} setLogin={setLogin}/>} />
       </Routes>
      
     </div>

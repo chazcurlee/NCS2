@@ -3,7 +3,7 @@
 }
 
 .background-dark {
-  background-color: #282742 !important;
+  background-color: rgb(40, 39, 66) !important;
   color: white !important;
 }
 
@@ -21,4 +21,8 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white; */
+}
+
+.clickable {
+  cursor: pointer;
 }
