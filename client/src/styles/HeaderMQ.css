@@ -13,10 +13,6 @@
     margin-left: 105px;
   }
 
-  #title-container-in {
-    height: 20%;
-  }
-
   #login-signup {
     font-size: 5em;
   }
@@ -145,10 +141,7 @@
     height: 50%;
     grid-column: 3 / 8;
     grid-row: 1;
-  }
-
-  #title-container-in {
-    height: 20%;
+    margin-left: 80px;
   }
 
   #DM-button-container {

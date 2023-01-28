@@ -101,17 +101,14 @@ const Details = (props) => {
         }
       }
 
-      let car =
-        filteredCarInfo.Make +
-        " " +
-        filteredCarInfo.Model +
-        " " +
-        filteredCarInfo.Year +
-        " review";
-
-      if (filteredCarInfo.Make || filteredCarInfo.Model === "Not Available") {
-        car = "How to look up a car's VIN";
-      }
+      let car = filteredCarInfo.Make
+        ? filteredCarInfo.Make +
+          " " +
+          filteredCarInfo.Model +
+          " " +
+          filteredCarInfo.Year +
+          " review"
+        : "How to look up a car's VIN";
 
       let image = await youtubesearchapi.GetListByKeyword(
         `${car}`,

@@ -72,11 +72,7 @@ const Header = (props) => {
       </Grid>
       <Grid id="title-container" item xs={12} md={4}>
         <Container sx={{ fontSize: "1.5em", height: "50%" }}>
-          <h1
-            id="title-container-in"
-            className="marginless  clickable"
-            onClick={handleClick}
-          >
+          <h1 id="/" className="marginless  clickable" onClick={handleClick}>
             <span className="ubuntu">VIN</span>
             <span className="cedar">query</span>
           </h1>

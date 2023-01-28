@@ -84,7 +84,7 @@ const Home = (props) => {
               backgroundColor: "white",
               mr: "10px",
               width: "100%",
-              borderRadius: "50px",
+              borderRadius: "10px",
             }}
             variant="outlined"
             placeholder="VIN"
@@ -100,7 +100,7 @@ const Home = (props) => {
             sx={{
               width: "100%",
               mt: "10px",
-              borderRadius: "50px",
+              borderRadius: "10px",
               backgroundColor: "white",
             }}
           />
