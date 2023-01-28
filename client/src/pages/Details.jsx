@@ -7,6 +7,7 @@ import CarCarousel from "../components/CarCarousel";
 
 const youtubesearchapi = require("youtube-search-api");
 
+// Pull the select information from the VIN API into this object
 let filteredCarInfo = {
   Make: "",
   Model: "",
@@ -23,22 +24,29 @@ let filteredCarInfo = {
 const Details = (props) => {
   let { vin, date } = useParams();
   const navigate = useNavigate();
+  // Initial state where the full VIN API is placed
   let [carInfo, setCarInfo] = useState({});
+  // States that help ensure correct order in useEffect's rerenders
   let [lock, setLock] = useState(false);
   let [refresh, setRefresh] = useState(false);
   let [final, setFinal] = useState(false);
+  // Put the full Youtube API here initially
   let [videoReview, setVideoReview] = useState([]);
+  // Pull YT videos' relevant data here to help iterate in carousel
   let [id, setId] = useState([]);
   let [title, setTitle] = useState([]);
   let [thumbnailUrl, setThumbnailUrl] = useState([]);
   let [vidHeight, setVidHeight] = useState([]);
   let [vidWidth, setVidWidth] = useState([]);
+  // Index markers for VIN API [Make, Model, Year, Price, Body Class, Trans, Drive, Engine, Turbo, Speed]
   let markers = [7, 9, 10, 21, 23, 49, 51, 79, 87, 88];
 
+  // Gives functionality to the back button
   const handleBack = () => {
     navigate("/");
   };
 
+  // Pulls VIN info from provided VIN, then filters relevant info into filteredCarInfo object, uses the car's make/model/year to pull 6 YT videos into videoReview state array. Finally, map videoReview's information into associated state for use in the CarCarousel later.
   useEffect(() => {
     const getVinInfo = async () => {
       let results = await axios.get(
@@ -98,10 +106,15 @@ const Details = (props) => {
         " " +
         filteredCarInfo.Model +
         " " +
-        filteredCarInfo.Year;
+        filteredCarInfo.Year +
+        " review";
+
+      if (filteredCarInfo.Make || filteredCarInfo.Model === "Not Available") {
+        car = "How to look up a car's VIN";
+      }
 
       let image = await youtubesearchapi.GetListByKeyword(
-        `${car} review`,
+        `${car}`,
         [true],
         [6],
         [{ type: "video" }]

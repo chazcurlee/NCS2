@@ -5,28 +5,25 @@ import "../styles/HeaderMQ.css";
 
 const Header = (props) => {
   let navigate = useNavigate();
-  let [iconColor, setIconColor] = useState("white");
   let [iconImg, setIconImg] = useState(true);
 
+  // Navigates to either home or signup/login depending
   const handleClick = (e) => {
     let navPoint = e.target.id;
     navigate(`${navPoint}`);
   };
 
+  // Handles change from dark mode to light mode
   const changeMode = () => {
     if (props.darkMode === "background-dark") {
       props.setDarkMode("background-light");
-      setIconColor("rgb(40, 39, 66)");
       setIconImg(false);
     }
     if (props.darkMode === "background-light") {
       props.setDarkMode("background-dark");
-      setIconColor("white");
       setIconImg(true);
     }
   };
-
-  //   useEffect(() => {}, [iconImg]);
 
   return (
     <Grid

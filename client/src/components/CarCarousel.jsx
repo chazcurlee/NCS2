@@ -2,8 +2,10 @@ import { Box } from "@mui/material";
 import { useState, useEffect } from "react";
 
 const CarCarousel = (props) => {
+  // State used to provide functioanlity to the carousel scroller
   let [vidScroll, setVidScroll] = useState(0);
 
+  // Right arrow is given 1 and left arrow is given -1 as arguments to make this carousel functional
   const handleClick = (num) => {
     if (vidScroll + num < 0) {
       setVidScroll(5);
@@ -16,6 +18,7 @@ const CarCarousel = (props) => {
     setVidScroll(vidScroll + num);
   };
 
+  // Simple rerender after scroll in carousel
   useEffect(() => {}, [vidScroll]);
 
   return (

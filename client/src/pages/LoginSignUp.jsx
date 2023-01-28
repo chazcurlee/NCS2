@@ -3,16 +3,19 @@ import "../styles/LogSignMQ.css";
 import { useState } from "react";
 
 const LoginSignUp = (props) => {
+  // States to handle user login / login errors
   let [userNameLog, setUserNameLog] = useState("");
   let [passLogin, setPassLogin] = useState("");
   let [userLoginError, setUserLoginError] = useState(false);
   let [passLoginError, setPassLoginError] = useState(false);
 
+  // States to handle user registration / registration errors
   let [userNameSign, setUserNameSign] = useState("");
   let [passSign, setPassSign] = useState("");
   let [userSignError, setUserSignError] = useState(false);
   let [passSignError, setPassSignError] = useState(false);
 
+  // Ensures username and/or password are not only spaces nor null/undefined
   const handleSubmitLogin = (e) => {
     e.preventDefault();
     let newUser = userNameLog.replace(/\s/g, "");
@@ -39,6 +42,7 @@ const LoginSignUp = (props) => {
     setPassLogin("");
   };
 
+  // Ensures username and/or password are not only spaces nor null/undefined
   const handleSubmitSign = (e) => {
     e.preventDefault();
     let newUser = userNameSign.replace(/\s/g, "");
@@ -64,6 +68,7 @@ const LoginSignUp = (props) => {
     setPassSign("");
   };
 
+  // Captures user's changes to input fields for login and registration
   const handleChange = (e) => {
     let id = e.target.id;
     let entry = e.target.value;
