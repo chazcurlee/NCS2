@@ -1,0 +1,179 @@
+@media only screen and (max-height: 415px) {
+  #header-main-container {
+    position: relative;
+    font-size: 1em;
+  }
+
+  #title-container {
+    font-size: 2em;
+    text-align: left;
+    height: 50%;
+    grid-column: 4 / 8;
+    grid-row: 1;
+    margin-left: 105px;
+  }
+
+  #title-container-in {
+    height: 20%;
+  }
+
+  #login-signup {
+    font-size: 5em;
+  }
+
+  #DM-button-container {
+    height: 75px;
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 386px) {
+  #header-main-container {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    grid-template-rows: 1fr 40%;
+    height: 100%;
+    font-size: 1.2em;
+  }
+
+  #DM-button-container {
+    grid-column: 1;
+    margin-top: 30%;
+    justify-self: right;
+    align-self: center;
+  }
+
+  #title-container {
+    height: 100%;
+    margin-top: 10%;
+  }
+
+  #login-signup {
+    font-size: 1em;
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+  }
+
+  #login-signup-container-out {
+    grid-column: 2;
+    grid-row: 2;
+    font-size: 0.5em;
+  }
+}
+
+@media only screen and (min-width: 387px) and (max-width: 599px) {
+  #header-main-container {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    grid-template-rows: 1fr 40%;
+    height: 100%;
+    font-size: 1.5em;
+  }
+
+  #DM-button-container {
+    grid-column: 1;
+    margin-top: 30%;
+    justify-self: right;
+    align-self: center;
+  }
+
+  #title-container {
+    height: 100%;
+    margin-top: 10%;
+  }
+
+  #login-signup {
+    font-size: 1em;
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+  }
+
+  #login-signup-container-out {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 767px) {
+  #header-main-container {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    grid-template-rows: 60% 40%;
+    height: 100%;
+  }
+
+  #DM-button-container {
+    grid-column: 1;
+    margin-top: 30%;
+    justify-self: right;
+    align-self: center;
+  }
+
+  #title-container {
+    font-size: 1.5em;
+    height: 100%;
+    margin-top: 10%;
+    margin-left: 105px;
+    grid-column: 4 / 8;
+  }
+
+  #login-signup {
+    font-size: 1.5em;
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+  }
+
+  #login-signup-container-out {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 899px) {
+  #header-main-container {
+    display: grid;
+    grid-template-columns: repeat(10, 10%);
+    grid-template-rows: 60% 20%;
+    height: 75%;
+  }
+
+  #title-container {
+    font-size: 2em;
+    text-align: left;
+    height: 50%;
+    grid-column: 3 / 8;
+    grid-row: 1;
+  }
+
+  #title-container-in {
+    height: 20%;
+  }
+
+  #DM-button-container {
+    width: 10%;
+    grid-column: 9;
+    grid-row: 1;
+    justify-self: center;
+    align-self: flex-end;
+  }
+
+  #login-signup {
+    font-size: 2em;
+
+    grid-row: 2;
+    width: 30vw;
+    margin-top: 0;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    justify-self: center;
+    align-self: center;
+  }
+
+  #login-signup-container-out {
+    grid-column: 4 / 7;
+    grid-row: 2;
+  }
+}

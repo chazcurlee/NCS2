@@ -11,13 +11,40 @@ html,
 body {
   height: 100%;
   width: 100%;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  overflow: hidden;
 }
 
 #hidden {
   visibility: hidden !important;
+}
+
+.ubuntu {
+  font-family: "Ubuntu", sans-serif;
+}
+
+.cedar {
+  font-family: "Cedarville Cursive", cursive;
+}
+
+.marginless {
+  margin: 0;
+}
+
+.margin-top {
+  margin-top: 20px;
+}
+
+.no-border {
+  border-color: transparent !important;
+}
+
+#home-container {
+  font-family: "Ubuntu";
+}
+
+@media only screen and (min-width: 200px) and (max-width: 1440px) {
+  html,
+  body {
+    overflow: scroll;
+  }
 }

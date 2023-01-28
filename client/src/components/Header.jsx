@@ -1,7 +1,7 @@
 import { Button, Grid, Container } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { FaRebel, FaEmpire } from "react-icons/fa";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import "../styles/HeaderMQ.css";
 
 const Header = (props) => {
   let navigate = useNavigate();
@@ -30,7 +30,8 @@ const Header = (props) => {
 
   return (
     <Grid
-      className={`${props.darkMode}`}
+      id="header-main-container"
+      className={`${props.darkMode} `}
       container
       direction="row"
       justifyContent="space between"
@@ -40,27 +41,55 @@ const Header = (props) => {
         position: "sticky",
         top: "0",
         backgroundColor: "white",
-        zIndex: "1",
+        zIndex: "2",
       }}
     >
-      <Grid container justifyContent="center" item xs={0} md={4}>
-        <Button onClick={changeMode}>
+      <Grid
+        container
+        id="DM-button-container"
+        justifyContent="center"
+        item
+        xs={0}
+        md={4}
+      >
+        <Button
+          disableRipple
+          style={{ backgroundColor: "transparent" }}
+          onClick={changeMode}
+        >
           {iconImg ? (
-            <FaEmpire size="2em" color={`${iconColor}`} />
+            <lord-icon
+              src="https://cdn.lordicon.com/hsjzfumd.json"
+              trigger="loop-on-hover"
+              style={{ width: "5em", height: "5em" }}
+            ></lord-icon>
           ) : (
-            <FaRebel size="2em" color={`${iconColor}`} />
+            <lord-icon
+              src="https://cdn.lordicon.com/vfbsedgx.json"
+              trigger="loop-on-hover"
+              colors="primary:#2516c7,secondary:#a66037"
+              style={{ width: "5em", height: "5em" }}
+            ></lord-icon>
           )}
         </Button>
       </Grid>
-      <Grid item xs={12} md={4}>
-        <Container sx={{ width: "50%" }}>
-          <h1 id="/" className="header-title clickable" onClick={handleClick}>
-            VINquery
+      <Grid id="title-container" item xs={12} md={4}>
+        <Container sx={{ fontSize: "1.5em", height: "50%" }}>
+          <h1
+            id="title-container-in"
+            className="marginless  clickable"
+            onClick={handleClick}
+          >
+            <span className="ubuntu">VIN</span>
+            <span className="cedar">query</span>
           </h1>
         </Container>
       </Grid>
-      <Grid item xs={12} md={4}>
-        <Container sx={{ width: "40%" }}>
+      <Grid id="login-signup-container-out" item xs={12} md={4}>
+        <Container
+          id="login-signup-container-in"
+          sx={{ width: "100%", margin: "0", mb: "5%" }}
+        >
           <h1
             id="login-signup"
             className="login-signup clickable"

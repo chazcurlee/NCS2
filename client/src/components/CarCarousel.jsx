@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 
 const CarCarousel = (props) => {
   let [vidScroll, setVidScroll] = useState(0);
-  let [visi, setVisi] = useState("");
 
   const handleClick = (num) => {
     if (vidScroll + num < 0) {
@@ -17,15 +16,11 @@ const CarCarousel = (props) => {
     setVidScroll(vidScroll + num);
   };
 
-  const hideHead = () => {
-    console.log("test");
-    setVisi("hidden");
-  };
-
-  useEffect(() => {}, [vidScroll, visi]);
+  useEffect(() => {}, [vidScroll]);
 
   return (
     <Box
+      id="carousel-container"
       display="grid"
       gridTemplateColumns="repeat(12, 1fr)"
       gridTemplateRows="repeat(12, 1fr)"
@@ -37,41 +32,45 @@ const CarCarousel = (props) => {
       }}
     >
       <Box
-        gridColumn="5 / 9"
+        id="reviews-title-card"
+        gridColumn="6 / 8"
         gridRow="1"
-        className={`${visi}`}
         sx={{
-          borderRight: "solid",
-          borderBottom: "solid",
-          borderLeft: "solid",
           borderColor: "grey",
           zIndex: "1",
           backgroundColor: "grey",
           opacity: "0.95",
+          borderRadius: "5px",
+          height: "1.5em",
+          width: "100%",
         }}
       >
         Reviews
       </Box>
       <Box
+        id="left-arrow-container"
+        className="arrow"
         gridColumn="1"
         gridRow="5 / 8"
         sx={{
-          borderTop: "solid",
-          borderBottom: "solid",
-          borderRight: "solid",
-          borderColor: "grey",
           zIndex: "1",
-          backgroundColor: "grey",
+          backgroundColor: "transparent",
           opacity: "0.5",
         }}
         onClick={() => {
           handleClick(-1);
         }}
-      ></Box>
+      >
+        <lord-icon
+          src="https://cdn.lordicon.com/yjtftsvu.json"
+          trigger="click"
+          style={{ width: "100%", height: "100%" }}
+        ></lord-icon>
+      </Box>
       <Box
-        className="TEST"
+        id="video-outer-container"
         gridColumn="1 / 13"
-        gridRow="2 / 13"
+        gridRow="2 / 12"
         display="grid"
         gridTemplateColumns="repeat(12, 1fr)"
         gridTemplateRows="repeat(12, 1fr"
@@ -80,16 +79,18 @@ const CarCarousel = (props) => {
         }}
       >
         <Box
+          id="video-inner-container"
           gridColumn=" span 12"
-          gridRow="1 / 12"
+          gridRow="1 / 13"
           sx={{
             height: "100%",
             width: "100%",
             cursor: "pointer",
+            mb: "20px",
           }}
-          onClick={hideHead}
         >
           <iframe
+            id="video-player"
             src={`https://www.youtube.com/embed/${props.id[vidScroll]}`}
             frameBorder="0"
             allow="autoplay; encrypted-media"
@@ -101,21 +102,28 @@ const CarCarousel = (props) => {
         </Box>
       </Box>
       <Box
+        id="right-arrow-container"
+        className="arrow"
         gridColumn="12"
         gridRow="5 / 8"
         sx={{
-          borderTop: "solid",
-          borderBottom: "solid",
-          borderLeft: "solid",
-          borderColor: "grey",
           zIndex: "1",
-          backgroundColor: "grey",
+          backgroundColor: "transparent",
           opacity: "0.5",
         }}
         onClick={() => {
           handleClick(1);
         }}
-      ></Box>
+      >
+        <lord-icon
+          src="https://cdn.lordicon.com/exwhxwbm.json"
+          trigger="click"
+          style={{
+            width: "100%",
+            height: "100%",
+          }}
+        ></lord-icon>
+      </Box>
     </Box>
   );
 };
